@@ -1,26 +1,48 @@
 ---
 import "../styles/global.css";
----
+const { title = "TP2 Penguins" } = Astro.props;
 
+---
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro Basics</title>
+    <title>{title} | TP2 Penguins</title>
   </head>
   <body>
-    <slot />
+    <header class="site-header">
+      <a class="brand" href="/">TP2 <span>Data</span></a>
+      <label class="site-selector">
+        <span>Navigation</span>
+        <select id="species" aria-label="Choisir une page">
+          <option value="/">Accueil</option>
+          <option value="/species/">Slider</option>
+          <option value="/species-tabs/">Onglets accessibles</option>
+          <option value="/species/Adelie/">Adelie</option>
+          <option value="/species/Gentoo/">Gentoo</option>
+          <option value="/species/Chinstrap/">Chinstrap</option>
+          <option value="/species/Orques/">Orques</option>
+          <option value="/species/Cachalots/">Cachalots</option>
+        </select>
+      </label>
+    </header>
+    <main><slot /></main>
+    <footer>TP2 R312</footer>
   </body>
 </html>
 
-<style>
-  html,
-  body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
+<script>
+  const pageSelect = document.querySelector("#species");
+
+  if (pageSelect instanceof HTMLSelectElement) {
+    pageSelect.value = location.pathname;
   }
-</style>
+
+  pageSelect?.addEventListener("change", (evt) => {
+    const value = (evt.target as HTMLSelectElement).value;
+    location.pathname = value;
+  });
+</script>
+
