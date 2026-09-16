@@ -12,11 +12,18 @@
     "@astrojs/netlify": "^8.2.3",
     "@observablehq/plot": "^0.6.17",
     "@tailwindcss/vite": "^4.3.3",
-    "astro": "^7.2.4",
+    "astro": "^7.3.2",
     "jsdom": "^30.0.1",
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
-    "@types/jsdom": "^30.0.0"
+    "@types/bun": "latest",
+    "@types/jsdom": "^30.0.0",
+    "tapable": "^2.3.3",
+    "typescript": "^5.9.3"
+  },
+  "private": true,
+  "peerDependencies": {
+    "typescript": "^5.9.0"
   }
 }
