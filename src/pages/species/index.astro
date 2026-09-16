@@ -12,7 +12,7 @@ const species = [
 <Layout title="Les espèces">
   <h1>Espèces</h1>
   <label class="species-menu-label" for="species-anchor">Aller à une espèce</label>
-  <select id="species-anchor" class="species-menu !border-[var(--line)] !bg-[var(--cream)]" aria-label="Navigation entre les espèces">
+  <select id="species-anchor" class="species-menu border-(--line)! bg-(--cream)!" aria-label="Navigation entre les espèces">
     {species.map((item) => <option value={item.name.toLowerCase()}>{item.name}</option>)}
   </select>
   <div class="species-slider" aria-label="Graphiques des espèces">
@@ -28,7 +28,7 @@ const species = [
 </Layout>
 
 <script>
-  const speciesSelect = document.querySelector("#species-anchor");
+  const speciesSelect = document.querySelector<HTMLSelectElement>("#species-anchor");
   const items = document.querySelectorAll(".item");
 
   speciesSelect?.addEventListener("change", (evt) => {
@@ -39,11 +39,10 @@ const species = [
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       const id = entry.target.getAttribute("id");
-      const selectedSpecies = document.querySelector(`#species-anchor option[value="${id}"]`) as HTMLOptionElement | null;
+      const selectedSpecies = document.querySelector<HTMLOptionElement>(`#species-anchor option[value="${id}"]`);
       if (entry.isIntersecting) {
-        if (selectedSpecies) {
-          speciesSelect.value = selectedSpecies.value;
-        }
+        if (!speciesSelect || !selectedSpecies) return;
+        speciesSelect.value = selectedSpecies.value;
       }
     });
   }, { threshold: 0.5 });
