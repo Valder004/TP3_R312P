@@ -15,18 +15,32 @@ const { title = "TP2 Penguins" } = Astro.props;
     <header class="site-header">
       <a class="brand" href="/">TP2 <span>Data</span></a>
       <label class="site-selector">
-        <span>Navigation</span>
+        <span>Pages</span>
         <select id="species" aria-label="Choisir une page">
           <option value="/">Accueil</option>
           <option value="/species/">Slider</option>
           <option value="/species-tabs/">Onglets accessibles</option>
-          <option value="/species/Adelie/">Adelie</option>
-          <option value="/species/Gentoo/">Gentoo</option>
-          <option value="/species/Chinstrap/">Chinstrap</option>
-          <option value="/species/Orques/">Orques</option>
-          <option value="/species/Cachalots/">Cachalots</option>
         </select>
       </label>
+      <nav class="comparison-navigation" aria-label="Choisir un comparatif">
+        <label class="site-selector">
+          <span>Manchots</span>
+          <select id="penguins-comparison" aria-label="Choisir un manchot">
+            <option value="" selected disabled>Comparer une espèce</option>
+            <option value="/species/Adelie/">Adelie</option>
+            <option value="/species/Chinstrap/">Chinstrap</option>
+            <option value="/species/Gentoo/">Gentoo</option>
+          </select>
+        </label>
+        <label class="site-selector">
+          <span>Cétacés</span>
+          <select id="cetaceans-comparison" aria-label="Choisir un cétacé">
+            <option value="" selected disabled>Comparer un cétacé</option>
+            <option value="/species/Orques/">Orques</option>
+            <option value="/species/Cachalots/">Cachalots</option>
+          </select>
+        </label>
+      </nav>
     </header>
     <main><slot /></main>
     <footer>TP2 R312</footer>
@@ -41,6 +55,18 @@ const { title = "TP2 Penguins" } = Astro.props;
   }
 
   pageSelect?.addEventListener("change", (evt) => {
+    const value = (evt.target as HTMLSelectElement).value;
+    location.pathname = value;
+  });
+
+  const penguinsSelect = document.querySelector("#penguins-comparison");
+  penguinsSelect?.addEventListener("change", (evt) => {
+    const value = (evt.target as HTMLSelectElement).value;
+    location.pathname = value;
+  });
+
+  const cetaceansSelect = document.querySelector("#cetaceans-comparison");
+  cetaceansSelect?.addEventListener("change", (evt) => {
     const value = (evt.target as HTMLSelectElement).value;
     location.pathname = value;
   });
